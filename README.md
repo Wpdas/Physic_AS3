@@ -13,6 +13,7 @@ Physic é uma Framework para simulação de física. Foi construída para ser us
 - Simular Impulsão.
 
 ## Como Usar
+Baixe este arquivo de exemplo para ver o funcionamento: [Example.zip](https://github.com/Wpdas/Physic_AS3/blob/master/example/example.zip).
 
 ```actionscript
 package  {
@@ -147,3 +148,8 @@ package  {
 }
 
 ```
+
+License
+----
+
+MIT
