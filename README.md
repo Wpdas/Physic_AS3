@@ -1,3 +1,4 @@
+![alt tag](https://github.com/Wpdas/Physic_AS3/blob/master/docs/billard-gl.png)
 # Physic AS3
 
 Physic é uma Framework para simulação de física. Foi construída para ser usada em jogos simples que necessitam de ações simples naturalizadas da física.
