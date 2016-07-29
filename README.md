@@ -1,5 +1,6 @@
 ![alt tag](https://github.com/Wpdas/Physic_AS3/blob/master/docs/billard-gl.png)
 # Physic AS3
+>Author: Wenderson Pires - @wpdas
 
 Physic é uma Framework para simulação de física. Foi construída para ser usada em jogos simples que necessitam de ações simples naturalizadas da física.
 É compatível com AIR Mobile (Android e iOS) e AIR Desktop.
@@ -13,8 +14,14 @@ Physic é uma Framework para simulação de física. Foi construída para ser us
 - Simular Colisão;
 - Simular Impulsão.
 
+#### Dados disponíveis para estudo:
+| Tipo | Descrição |
+| --- | --- |
+| Documentação | [Documentação completa da biblioteca](https://github.com/Wpdas/Physic_AS3/tree/master/example). |
+| Arquivo de Exemplo | [Arquivos prontos para teste (projeto .fla)](https://github.com/Wpdas/Physic_AS3/tree/master/example). |
+
 ## Como Usar
-Baixe este exemplo para ver o funcionamento: [Example Files](https://github.com/Wpdas/Physic_AS3/tree/master/example).
+Baixe este exemplo abaixo para ver o funcionamento: [Example Files](https://github.com/Wpdas/Physic_AS3/tree/master/example).
 
 ```actionscript
 package  {
