@@ -12,7 +12,7 @@ package com.physic.body
 		
 		/**
 		 * Cria corpo estático.
-		 * @param	source	Objeto que vai ser inserido na física
+		 * @param	source	Objeto que vai ser inserido no corpo
 		 */
 		public function StaticBody(source:SpritePhysic) 
 		{

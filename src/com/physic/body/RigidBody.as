@@ -13,7 +13,7 @@ package com.physic.body
 		
 		/**
 		 * Cria novo tipo de corpo
-		 * @param	source				Objeto que vai ser inserido na física.
+		 * @param	source				Objeto que vai ser inserido no corpo.
 		 * @param	density				Densidade do objeto
 		 * @param	enableSyncRotate	Habilitar movimento de textura sincronizada com o movimento do objeto?
 		 */

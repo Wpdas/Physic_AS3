@@ -12,10 +12,12 @@ package com.physic
 	import flash.geom.Point;
 	
 	/**
-	 * Gravidade
 	 * 
-	 * O tratamento de colisão é verificado pixel a pixel dos objetos.
-	 * Esta biblioteca só faz tratamento de colisões em Corpos Rigidos e Corpos Estáticos (RigidBody e StaticBody)
+	 * <img src="https://github.com/Wpdas/Physic_AS3/raw/master/docs/billard-gl.png"/> <br>!
+	 * 
+	 * <p>Biblioteca para simulação de gravidade (Gravidade, Resistência, Força, Força Resultante, Colisão e Impulsão).</p>
+	 * 
+	 * <p>O exemplo de uso pode ser visto neste link: <strong><a target="_blank" href="https://github.com/Wpdas/Physic_AS3/blob/master/example/">Example Files</a></strong></p>
 	 * 
 	 * @author Wenderson Pires da Silva - @wpdas
 	 * @version 1.0.0

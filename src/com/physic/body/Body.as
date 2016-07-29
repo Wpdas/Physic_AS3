@@ -15,13 +15,21 @@ package com.physic.body
 	{
 		//Definições internas
 		private var _body:SpritePhysic;
+		
+		/**
+		 * @private
+		 */
 		internal var _type:Class;
+		
 		private var _gForce:Number = 0; //Força atual a qual sofrera alteração da gravidade
 		
 		//Controlador de direcao
 		private var _isDown:Boolean = true;
 		
-		//Deve ter rotação sincronizada
+		/**
+		 * Deve ter rotação sincronizada
+		 * @private
+		 */
 		internal var _enableSyncRotate:Boolean; //Usado em RigidBody
 		
 		//Controle de força horizontal
@@ -45,7 +53,7 @@ package com.physic.body
 		 * 
 		 * Para alterar os atributos de posição, rotação, escala e etc... do objeto. Use "objetoInstanciado.pivot.x" etc
 		 * 
-		 * @param	source		Objeto que vai ser inserido na física. Pode ser usado SpritePhysic
+		 * @param	source		Objeto que vai ser inserido no corpo
 		 * @param	density		Densidade do objeto
 		 */
 		public function Body(source:SpritePhysic, density:Number = 0)

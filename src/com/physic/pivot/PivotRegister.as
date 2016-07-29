@@ -5,16 +5,17 @@ package com.physic.pivot
 	import flash.geom.Point;
 	
 	/**
-	 * ATENÇÃO: Esta classe é parte da lib Wenz. Para mais informações acesse: http://migre.me/5NXoo
+	 * Responsável por modificar o ponto de registro de um DisplayObject.
 	 * 
-	 * Classe responsável por modificar o ponto de registro de um DisplayObject.
-	 * Todos os direitos estão reservados ao desenvolvedor.
-	 * 
-	 * Exemplo de uso:
+	 * @example Exemplo de uso:
+	 * <listing version="3.0">
 	 * var objetoPoint:PointRegister = new PointRegister(objeto, Registers.CENTER);
+	 * </listing>
 	 * 
 	 * Existe a possibilidade de alterar o ponto de registro:
+	 * <listing version="3.0">
 	 * objetoPoint.newRegister(Registers.MANUAL_POINT(10, 10));
+	 * </listing>
 	 * 
 	 * @author Wenderson Pires da Silva - wpdas@yahoo.com.br
 	 * @version 1.0

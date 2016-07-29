@@ -1,10 +1,7 @@
 package com.physic.pivot
 {
 	/**
-	 * ATENÇÃO: Esta classe é parte da lib Wenz. Para mais informações acesse: http://migre.me/5NXoo
-	 * 
-	 * Classe contendo os registros padrões e manual do PointRegister
-	 * Todos os direitos estão reservados ao desenvolvedor.
+	 * Conteúndo dos registros padrões e manual do PointRegister
 	 * 
 	 * @author Wenderson Pires da Silva - wpdas@yahoo.com.br
 	 * @version 1.0

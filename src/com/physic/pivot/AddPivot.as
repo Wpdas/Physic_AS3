@@ -1,10 +1,8 @@
 package com.physic.pivot 
 {
 	import flash.display.MovieClip;
-	/**
-	 * ATENÇÃO: Esta classe é parte da lib Wenz. Para mais informações acesse: http://migre.me/5NXoo
-	 * 
-	 * Classe responsável por inserir a propriedade pointRegister dentro do objeto passado.
+	/** 
+	 * Responsável por inserir a propriedade pointRegister dentro do objeto passado.
 	 * 
 	 * @author Wenderson Pires da Silva - wpdas@yahoo.com.br
 	 * @version 1.0
@@ -13,10 +11,16 @@ package com.physic.pivot
 	{
 		/**
 		 * Objeto a ser inserido a propriedade
+		 * 
+		 * @example Exemplo de uso:
+		 * <listing version="3.0">
+		 * AddPivot.addPivot(elemento, Pivot.TOP_LEFT);
+		 * </listing>
+		 * 
 		 * @param	source	DisplayObject a ser inserido a propriedade "pointRegister".
 		 * @param	register	Registro inicial. (Use Registers).
 		 */
-		public static function addPivot(source:MovieClip, register:String)
+		public static function addPivot(source:MovieClip, register:String):void
 		{
 			//Novo ponto de registro com registro default
 			var pr:PivotRegister = new PivotRegister(source, register);
