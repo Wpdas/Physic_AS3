@@ -13,7 +13,7 @@ package com.physic
 	
 	/**
 	 * 
-	 * <img src="https://github.com/Wpdas/Physic_AS3/raw/master/docs/billard-gl.png"/> <br>!
+	 * <img src="https://github.com/Wpdas/Physic_AS3/raw/master/docs/billard-gl.png"/> <br>
 	 * 
 	 * <p>Biblioteca para simulação de gravidade (Gravidade, Resistência, Força, Força Resultante, Colisão e Impulsão).</p>
 	 * 
