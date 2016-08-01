@@ -8,7 +8,7 @@ Physic é uma Framework para simulação de física. Foi construída para ser us
 #### Principais Características:
 
 - Simular Gravidade;
-- Simular Resistencia;
+- Simular Resistência;
 - Simular Força;
 - Simular Força Resultante;
 - Simular Colisão;
