@@ -1,29 +1,20 @@
-package com.physic 
+package com.physic.starling 
 {
-	import com.physic.body.Body;
-	import com.physic.body.RigidBody;
-	import com.physic.body.StaticBody;
 	import com.physic.body.obj.PhysicObject;
 	import com.physic.collision.CollisionType;
-	import com.physic.event.GravityEvent;
-	import flash.geom.Point;
+	import com.physic.starling.body.BodyStarling;
+	import com.physic.starling.body.RigidBodyStarling;
+	import com.physic.starling.body.StaticBodyStarling;
 	
 	/**
-	 * 
-	 * <img src="https://github.com/Wpdas/Physic_AS3/raw/master/docs/billard-gl.png"/> <br>
-	 * 
-	 * <p>Biblioteca para simulação de gravidade (Gravidade, Resistência, Força, Força Resultante, Colisão e Impulsão).</p>
-	 * 
-	 * <p>O exemplo de uso pode ser visto neste link: <strong><a target="_blank" href="https://github.com/Wpdas/Physic_AS3/blob/master/example/">Example Files</a></strong></p>
-	 * 
+	 * Gravidade para Starling
 	 * @author Wenderson Pires da Silva - @wpdas
-	 * @version 1.0.0
 	 */
-	public class Gravity extends PhysicObject
+	public class GravityStarling extends PhysicObject
 	{
 		//Vetor de corpos
-		protected var staticBodyList:Vector.<Body>;
-		protected var rigidBodyList:Vector.<Body>;
+		protected var staticBodyList:Vector.<BodyStarling>;
+		protected var rigidBodyList:Vector.<BodyStarling>;
 		
 		//Fatores de gravidade
 		protected var _gravity:Number = 9.8;
@@ -35,15 +26,14 @@ package com.physic
 		protected var collisonType:String = CollisionType.POINT_COLLISION;
 		
 		/**
-		 * Inicia a força da gravidade
+		 * Inicia a força da gravidade - Starling
 		 * @param	resistance		Resistencia da gravidade (interpretada como resistencia do Ar)
 		 * @param	gravity			Força de gravidade
-		 * @param	collisionType	Tipo de colisão que deverá ser usado na gravidade (use CollisionType.TYPE). CollisionType.BITMAP_COLLISION por default.
 		 */
-		public function Gravity(resistance:Number = 1, gravity:Number = 9.8, collisionType:String = CollisionType.POINT_COLLISION){
-			
+		public function GravityStarling(resistance:Number = 1, gravity:Number = 9.8)
+		{
 			//Aviso
-			trace("PHYSIC: Todos os elementos com base PhysicObject devem ter alinhamento padrão no Topo Esquerdo. O Pivot deve ser alterado usando 'pivot.x' e etc.");
+			trace("PHYSIC STARLING: Todos os elementos com base PhysicObject devem ter alinhamento padrão no Topo Esquerdo. O Pivot deve ser alterado usando 'pivot.x' e etc.");
 			
 			//Seta
 			this.resistance = resistance / 100;//Resistencia do ar
@@ -53,42 +43,43 @@ package com.physic
 			this.gravityForce = _gravity / 15; //15 é para criar um fator legivel que trabalhe a gravidade com pixel
 			
 			//Inicia o vetor
-			staticBodyList = new Vector.<Body>();
-			rigidBodyList = new Vector.<Body>();
+			staticBodyList = new Vector.<BodyStarling>();
+			rigidBodyList = new Vector.<BodyStarling>();
 			
 			//Seta o tipo de colisão a ser tratada
-			this.collisonType = collisonType;
+			this.collisonType = CollisionType.STARLING_COLLISION;
 		}
 		
 		/**
 		 * Inserir corpo à força gravitacional
-		 * @param	child	Body a ser inserido no campo gravitacional
+		 * @param	child	BodyStarling a ser inserido no campo gravitacional
 		 */
-		public function insertBody(child:Body):void {
+		public function insertBody(child:BodyStarling):void {
 			
 			//insere cada tipo em sua lista
-			if (child.type == RigidBody) rigidBodyList.push(child);
-			if (child.type == StaticBody) staticBodyList.push(child);
+			if (child.type == RigidBodyStarling) rigidBodyList.push(child);
+			if (child.type == StaticBodyStarling) staticBodyList.push(child);
 		}
 		
 		/**
 		 * Remover corpo da força gravitacional
-		 * @param	child	Body a ser retirado no campo gravitacional
+		 * @param	child	BodyStarling a ser retirado no campo gravitacional
 		 */
-		public function removeBody(child:Body):void {
+		public function removeBody(child:BodyStarling):void {
 			
-			if (child.type == RigidBody) {
+			if (child.type == RigidBodyStarling) {
 				
 				if(rigidBodyList.indexOf(child) >= 0) rigidBodyList.splice(rigidBodyList.indexOf(child), 1);
 				
 			};
 			
-			if (child.type == StaticBody) {
+			if (child.type == StaticBodyStarling) {
 				
 				if(staticBodyList.indexOf(child) >= 0) staticBodyList.splice(staticBodyList.indexOf(child), 1);
 				
 			};
 		}
+		
 		
 		/**
 		 * Renderiza processo de gravidade
@@ -96,8 +87,8 @@ package com.physic
 		public function render():void {
 			
 			//Corpo a ser processado
-			var currentBody:Body;
-			var currentSolidBody:Body;
+			var currentBody:BodyStarling;
+			var currentSolidBody:BodyStarling;
 			
 			//Processa
 			for (var i:uint = 0; i < rigidBodyList.length; i++){
@@ -124,29 +115,13 @@ package com.physic
 						//currentSolidBody.updateBitmap(); (!) Deve ser chamada pelo desenvolvedor
 						
 						if (currentBody.isDown){
-						
-							//Se o tipo de colisão for Bitmap
-							if (collisonType == CollisionType.BITMAP_COLLISION){
-								
-								var point1:Point = new Point(currentSolidBody.body.x, currentSolidBody.body.y); //Pontos de pixel a partir do Topo esquerdo das bases solidas
-								var point2:Point = new Point(currentBody.body.x, currentBody.body.y);// Pontos de pixel a partir do Topo esquerdo dos corpos rigidos
-								
-								//Verifica se o pixel está colidindo
-								if(currentSolidBody.bitmap.hitTest(point1, 255, currentBody.bitmap, point2, 255)) {
-									currentBody.gForce = (currentBody.gForce / (0.978 + currentBody.density)) * -1; //0.978 Fator de gravidade aplicada / 10
-									
-									//Verifica se continua se movimentando horizontalmente
-									currentBody.isDown = (Math.abs(currentBody.gForce) - gravityForce) >= minDefictPixelGravityForce;
-									
-									//Se o objeto for setado como false, dispara evento informando que algum elemento de Body foi parado (o efeito da gravidade)
-									if (!currentBody.isDown) dispatchEvent(new GravityEvent(GravityEvent.ON_SOME_BODY_STOP));
-								}
-							}
 							
-							//Se o tipo de colisão for por ponto
-							if (collisonType == CollisionType.POINT_COLLISION){
+							//Se o tipo de colisão for para Starling
+							if (collisonType == CollisionType.STARLING_COLLISION){
 								
-								if(currentSolidBody.body.hitTestPoint(currentBody.body.pivot.x, currentBody.body.pivot.y, true) && currentBody.gForce > 0) {
+								//(!) configura colisão starling, falta colocar um corpo solido
+								
+								/*if(currentSolidBody.body.hitTestPoint(currentBody.body.pivot.x, currentBody.body.pivot.y, true) && currentBody.gForce > 0) {
 									currentBody.gForce = (currentBody.gForce / (0.978 + currentBody.density)) * -1; //0.978 Fator de gravidade aplicada / 10
 									
 									//Verifica se continua se movimentando horizontalmente
@@ -154,22 +129,7 @@ package com.physic
 									
 									//Se o objeto for setado como false, dispara evento informando que algum elemento de Body foi parado (o efeito da gravidade)
 									if (!currentBody.isDown) dispatchEvent(new GravityEvent(GravityEvent.ON_SOME_BODY_STOP));
-								}
-							}
-							
-							//Se o tipo de colisão for por calculo
-							if (collisonType == CollisionType.CALCULATION_COLLISION) {
-								
-								if (currentBody.positionY >= currentSolidBody.body.pivot.y && currentBody.gForce > 0){
-									currentBody.gForce = (currentBody.gForce / (0.978 + currentBody.density)) * -1; //0.978 Fator de gravidade aplicada / 10
-									
-									//Verifica se continua se movimentando horizontalmente
-									currentBody.isDown = (Math.abs(currentBody.gForce) - gravityForce) >= minDefictPixelGravityForce;
-									
-									//Se o objeto for setado como false, dispara evento informando que algum elemento de Body foi parado (o efeito da gravidade)
-									if (!currentBody.isDown) dispatchEvent(new GravityEvent(GravityEvent.ON_SOME_BODY_STOP));
-								}
-								
+								}*/
 							}
 						
 						}
@@ -177,13 +137,12 @@ package com.physic
 					
 				//}
 				
-				
-				
+				//(!)Trata reativação de caida
 				
 				//Verifica se esta ocorrendo contato para ativar novamente a caida
-				if(!currentBody.body.hitTestObject(currentSolidBody.body) && !currentBody.isDown) {
+				/*if(!currentBody.body.hitTestObject(currentSolidBody.body) && !currentBody.isDown) {
 					currentBody.isDown = true;
-				}
+				}*/
 				
 				
 				

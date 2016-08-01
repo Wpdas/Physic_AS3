@@ -21,6 +21,11 @@ package com.physic.collision
 		 */
 		public static const CALCULATION_COLLISION:String = "collisionType_calculationCollision";
 		
+		/**
+		 * Tipo de colisão para Starling (Deve ser usado somente para Starling)
+		 */
+		public static const STARLING_COLLISION:String = "collisionType_starlingCollision";
+		
 	}
 
 }
