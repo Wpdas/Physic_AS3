@@ -12,7 +12,8 @@ Physic é uma Framework para simulação de física. Foi construída para ser us
 - Simular Força;
 - Simular Força Resultante;
 - Simular Colisão;
-- Simular Impulsão.
+- Simular Impulsão;
+- Compatibilidade com Starling.
 
 #### Dados disponíveis para estudo:
 | Tipo | Descrição |
