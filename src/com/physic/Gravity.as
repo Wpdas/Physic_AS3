@@ -82,13 +82,13 @@ package com.physic
 			
 			if (child.type == RigidBody) {
 				
-				if(rigidBodyList.indexOf(child) > 0) rigidBodyList.splice(rigidBodyList.indexOf(child), 1);
+				if(rigidBodyList.indexOf(child) >= 0) rigidBodyList.splice(rigidBodyList.indexOf(child), 1);
 				
 			};
 			
 			if (child.type == StaticBody) {
 				
-				if(staticBodyList.indexOf(child) > 0) staticBodyList.splice(staticBodyList.indexOf(child), 1);
+				if(staticBodyList.indexOf(child) >= 0) staticBodyList.splice(staticBodyList.indexOf(child), 1);
 				
 			};
 		}
