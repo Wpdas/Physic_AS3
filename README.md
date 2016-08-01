@@ -17,11 +17,11 @@ Physic é uma Framework para simulação de física. Foi construída para ser us
 #### Dados disponíveis para estudo:
 | Tipo | Descrição |
 | --- | --- |
-| Documentação | [Documentação completa da biblioteca](https://rawgit.com/Wpdas/Physic_AS3/master/docs/index.html). |
-| Arquivo de Exemplo | [Arquivos prontos para teste (projeto .fla)](https://github.com/Wpdas/Physic_AS3/tree/master/example). |
+| Documentação | [Documentação completa da biblioteca v1.0.0](https://rawgit.com/Wpdas/Physic_AS3/master/docs/index.html). |
+| Arquivo de Exemplo | [Arquivos prontos para teste (projeto .fla) v1.0.0](https://github.com/Wpdas/Physic_AS3/tree/master/example). |
 
 ## Como Usar
-Baixe este exemplo abaixo para ver o funcionamento: [Example Files](https://github.com/Wpdas/Physic_AS3/tree/master/example).
+Baixe este exemplo abaixo para ver o funcionamento: [Example Files v1.0.0](https://github.com/Wpdas/Physic_AS3/tree/master/example).
 
 ```actionscript
 package  {
