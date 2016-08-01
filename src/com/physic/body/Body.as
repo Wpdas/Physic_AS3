@@ -4,7 +4,6 @@ package com.physic.body
 	import com.physic.display.SpritePhysic;
 	import com.physic.event.BodyEvent;
 	import flash.display.BitmapData;
-	import flash.display.Sprite;
 	import flash.events.MouseEvent;
 	
 	/**

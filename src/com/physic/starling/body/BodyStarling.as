@@ -3,7 +3,9 @@ package com.physic.starling.body
 	import com.physic.body.obj.PhysicObject;
 	import com.physic.event.BodyEvent;
 	import com.physic.starling.display.SpritePhysicStarling;
-	import flash.events.MouseEvent;
+	import flash.display.BitmapData;
+	import starling.core.Starling;
+	import starling.events.TouchEvent;
 	
 	/**
 	 * Corpo
@@ -23,6 +25,7 @@ package com.physic.starling.body
 		
 		//Controlador de direcao
 		private var _isDown:Boolean = true;
+		public var _isOverGround:Boolean = false;
 		
 		/**
 		 * Deve ter rotação sincronizada
@@ -38,6 +41,9 @@ package com.physic.starling.body
 		//Tratador de eventos
 		private var dispatcherUp:Boolean = false;
 		private var dispatcherDown:Boolean = false;
+		
+		//Transformed BitmapData
+		private var _bitmap:BitmapData;
 		
 		//Densidade
 		private var _density:Number = 0;
@@ -56,15 +62,20 @@ package com.physic.starling.body
 			this._body = source;
 			this._density = getDensityFactor(density); //Seta fator de densidade
 			
+			//Inicia bitmap usado para tratar colisões
+			//_bitmap = new BitmapData(source.pivot.width, source.pivot.height, true, 0x00000000);
+			//Starling.context.drawToBitmapData(_bitmap);
+			//(!) Não funciona
+			
 			//Inicia tratamento de eventos
-			this._body.addEventListener(MouseEvent.MOUSE_DOWN, onTapBody);
+			this._body.addEventListener(TouchEvent.TOUCH, onTapBody);
 		}
 		
 		/**
 		 * Quando toca no corpo
 		 * @param	e
 		 */
-		private function onTapBody(e:MouseEvent):void 
+		private function onTapBody(e:TouchEvent):void 
 		{
 			//Dispara evento de toque/clique
 			dispatchEvent(new BodyEvent(BodyEvent.ON_TAP_CLICK));
@@ -93,6 +104,16 @@ package com.physic.starling.body
 		public function get gForce():Number 
 		{
 			return _gForce;
+		}
+		
+		/**
+		 * Atualiza Bitmap de colisão
+		 */
+		public function updateBitmap():void {
+			
+			_bitmap.dispose();
+			_bitmap = new BitmapData(_body.pivot.width, _body.pivot.height, true, 0x00000000);
+			Starling.context.drawToBitmapData(_bitmap);
 		}
 		
 		/**
@@ -239,6 +260,22 @@ package com.physic.starling.body
 		}
 		
 		/**
+		 * BitmapData para colisão
+		 */
+		public function get bitmap():BitmapData 
+		{
+			return _bitmap;
+		}
+		
+		/**
+		 * BitmapData para colisão
+		 */
+		public function set bitmap(value:BitmapData):void 
+		{
+			_bitmap = value;
+		}
+		
+		/**
 		 * Adiciona uma força horizontal ao objeto
 		 * @param	force 			Propriedades de força do objeto
 		 * @param	isContinuous	Movimento é contínuo ou sofre ação da gravidade?
@@ -276,7 +313,7 @@ package com.physic.starling.body
 		public function dispose():void {
 			
 			//Remove eventos
-			this._body.removeEventListener(MouseEvent.MOUSE_DOWN, onTapBody);
+			this._body.removeEventListener(TouchEvent.TOUCH, onTapBody);
 		}
 		
 	}
