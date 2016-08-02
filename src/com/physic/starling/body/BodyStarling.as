@@ -24,8 +24,12 @@ package com.physic.starling.body
 		private var _gForce:Number = 0; //Força atual a qual sofrera alteração da gravidade
 		
 		//Controlador de direcao
-		private var _isDown:Boolean = true;
-		public var _isOverGround:Boolean = false;
+		private var _isDown:Boolean = true; //Esta caindo
+		private var _asStep:Boolean = false; //Esta sendo pisado
+		private var _asStepSomeone:Boolean = false; //Esta pisando em algo
+		
+		//Controlador de objeto de colisão
+		private var _objectToCollision:BodyStarling;
 		
 		/**
 		 * Deve ter rotação sincronizada
@@ -252,11 +256,11 @@ package com.physic.starling.body
 			_isDown = value;
 			
 			//Se parar movimento
-			/*if (!_isDown) {
+			if (!_isDown) {
 				
 				//Dispara evento informando que este corpo foi parado
 				dispatchEvent(new BodyEvent(BodyEvent.ON_BODY_STOP));
-			}*/
+			}
 		}
 		
 		/**
@@ -273,6 +277,54 @@ package com.physic.starling.body
 		public function set bitmap(value:BitmapData):void 
 		{
 			_bitmap = value;
+		}
+		
+		/**
+		 * Está sendo pisado?
+		 */
+		public function get asStep():Boolean 
+		{
+			return _asStep;
+		}
+		
+		/**
+		 * Está sendo pisado?
+		 */
+		public function set asStep(value:Boolean):void 
+		{
+			_asStep = value;
+		}
+		
+		/**
+		 * Está pisando em algo?
+		 */
+		public function get asStepSomeone():Boolean 
+		{
+			return _asStepSomeone;
+		}
+		
+		/**
+		 * Está pisando em algo?
+		 */
+		public function set asStepSomeone(value:Boolean):void 
+		{
+			_asStepSomeone = value;
+		}
+		
+		/**
+		 * Objeto para verificar a colisao um a um 
+		 */
+		public function get objectToCollision():BodyStarling 
+		{
+			return _objectToCollision;
+		}
+		
+		/**
+		 * Objeto para verificar a colisao um a um 
+		 */
+		public function set objectToCollision(value:BodyStarling):void 
+		{
+			_objectToCollision = value;
 		}
 		
 		/**

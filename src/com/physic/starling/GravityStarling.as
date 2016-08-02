@@ -106,98 +106,91 @@ package com.physic.starling
 				else currentBody.gForce = 0;
 				
 				//Trata finalizador de gravidade caso o elemento esteja inteiramente no chao
-				//if (currentBody.isDown){
-					if(currentBody.isDown) currentBody.body.pivot.y += currentBody.gForce;
+				if(currentBody.isDown) currentBody.body.pivot.y += currentBody.gForce;
+				
+				//Verifica se colidiu com algum corpo solido
+				for (var s:uint = 0; s < staticBodyList.length; s++){
 					
-					//Verifica se colidiu com algum corpo solido
-					for (var s:uint = 0; s < staticBodyList.length; s++){
+					//Seta corpo solido
+					currentSolidBody = staticBodyList[s];
+					boundsSolidBody = currentSolidBody.body.bounds;
 						
-						//Seta corpo solido
-						currentSolidBody = staticBodyList[s];
-						boundsSolidBody = currentSolidBody.body.bounds;
+					//Processa colisão
+					if (currentBody.isDown){
+						
+						//Se o tipo de colisão for para Starling
+						if (collisonType == CollisionType.STARLING_COLLISION){
 							
-						//Processa colisão
-						if (currentBody.isDown){
 							
-							//Se o tipo de colisão for para Starling
-							if (collisonType == CollisionType.STARLING_COLLISION){
+							/*if (currentSolidBody.body.hitTest(new Point(currentBody.body.pivot.x, currentBody.body.pivot.y)) && currentBody.gForce > 0){
 								
+								trace("vouuu");
 								
-								/*if (currentSolidBody.body.hitTest(new Point(currentBody.body.pivot.x, currentBody.body.pivot.y)) && currentBody.gForce > 0){
-									
-									trace("vouuu");
-									
-									currentBody.gForce = (currentBody.gForce / (0.978 + currentBody.density)) * -1; //0.978 Fator de gravidade aplicada / 10
-									
-									//Verifica se continua se movimentando horizontalmente
-									currentBody.isDown = (Math.abs(currentBody.gForce) - gravityForce) >= minDefictPixelGravityForce;
-									
-									//Se o objeto for setado como false, dispara evento informando que algum elemento de Body foi parado (o efeito da gravidade)
-									if (!currentBody.isDown) dispatchEvent(new GravityEvent(GravityEvent.ON_SOME_BODY_STOP));
-								}*/
+								currentBody.gForce = (currentBody.gForce / (0.978 + currentBody.density)) * -1; //0.978 Fator de gravidade aplicada / 10
 								
-								if (boundsBody.intersects(boundsSolidBody) && currentBody.gForce > 0){
-									
-									//Trata colisão vertical
-									if (boundsBody.bottom >= boundsSolidBody.top){
-										
-										currentBody.gForce = (currentBody.gForce / (0.978 + currentBody.density)) * -1;
-										currentBody.isDown = (Math.abs(currentBody.gForce) - gravityForce) >= minDefictPixelGravityForce;
-										
-										if (!currentBody.isDown) dispatchEvent(new GravityEvent(GravityEvent.ON_SOME_BODY_STOP));
-										
-									}
-								}
-							}
+								//Verifica se continua se movimentando horizontalmente
+								currentBody.isDown = (Math.abs(currentBody.gForce) - gravityForce) >= minDefictPixelGravityForce;
+								
+								//Se o objeto for setado como false, dispara evento informando que algum elemento de Body foi parado (o efeito da gravidade)
+								if (!currentBody.isDown) dispatchEvent(new GravityEvent(GravityEvent.ON_SOME_BODY_STOP));
+							}*/
 							
-						} else {
-							
-							//(!)
-							if (!boundsBody.intersects(boundsSolidBody)){
+							if (boundsBody.intersects(boundsSolidBody) && currentBody.gForce > 0){
 								
-								//Vertical
-								trace(boundsBody.bottom, boundsSolidBody.top);
-								
+								//Trata colisão vertical
 								if (boundsBody.bottom >= boundsSolidBody.top){
 									
-									currentBody.isDown = true;
+									currentBody.gForce = (currentBody.gForce / (0.978 + currentBody.density)) * -1;
+									currentBody.isDown = (Math.abs(currentBody.gForce) - gravityForce) >= minDefictPixelGravityForce;
+									
+									if (!currentBody.isDown) dispatchEvent(new GravityEvent(GravityEvent.ON_SOME_BODY_STOP));
+									
 								}
 							}
+						}
+						
+					} else {
+						
+						//Parte super importante para tratar colisao
+						//====================================================================
+						if (currentSolidBody.body.bounds.intersects(currentBody.body.bounds)){
 							
-							//Verifica se esta ocorrendo contato para ativar novamente a caida
-							/*if (currentBody.body.hitTest(new Point(currentSolidBody.body.pivot.x, currentSolidBody.body.pivot.y))) {//gForce
+							if (currentBody.objectToCollision == null){
 								
-								//trace("simm");
-								
-								trace("Potato");
-								trace(currentBody.gForce);
-								
-								//currentBody.isDown = true;
-								
-								//currentBody.gForce -= 0.001;
+								//trace("Teste");
+								currentBody.objectToCollision = currentSolidBody;
+								currentBody.isDown = false;
 							} else {
 								
-								trace("naoo");
-							}*/
-							
-							//var bounds1:Rectangle = currentBody.body.bounds;
-							//var bounds2:Rectangle = currentSolidBody.body.bounds;
-							
-							
-							
-							//trace(bounds2.intersects(bounds1));
-							
-							/*if ((currentBody.body)){
+								//trace("Teste2");
 								
-							}*/
-							
+								//Verifica se ainda esta colidindo com este objeto
+								if (!currentBody.objectToCollision.body.bounds.intersects(currentBody.body.bounds)) {
+									currentBody.objectToCollision = null;
+									currentBody.isDown = true;
+									//trace("Não colide mais");
+								} else {
+									//trace("Ainda colide");
+									currentBody.isDown = false;
+								}
+							}
 						}
+						
+						//Verifica se ainda esta colidindo com este objeto
+						if (currentBody.objectToCollision != null && !currentBody.objectToCollision.body.bounds.intersects(currentBody.body.bounds)) {
+							currentBody.objectToCollision = null;
+							currentBody.isDown = true;
+							//trace("Não colide mais");
+						} else {
+							//trace("Ainda colide");
+							currentBody.isDown = false;
+						}
+						
+						//====================================================================
+						
 					}
-					
-				//}
+				}
 				
-				//trace(currentBody.body.bounds.bottom, currentSolidBody.body.bounds.top, currentBody.body.height );
-				//trace(currentBody.body.y, currentSolidBody.body.y);
 				
 				//Processa força horizontal
 				if (currentBody.enableHorizontalForce && Math.abs(currentBody.horizontalForce) > resistance){
