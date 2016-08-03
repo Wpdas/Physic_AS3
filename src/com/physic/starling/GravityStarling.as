@@ -13,7 +13,7 @@ package com.physic.starling
 	 * Gravidade para Starling
 	 * @author Wenderson Pires da Silva - @wpdas
 	 */
-	public class GravityStarling extends PhysicObject
+	public class GravityStarling
 	{
 		//Vetor de corpos
 		protected var staticBodyList:Vector.<BodyStarling>;

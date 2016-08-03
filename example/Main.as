@@ -3,19 +3,20 @@
 	import com.physic.Gravity;
 	import com.physic.body.RigidBody;
 	import com.physic.body.StaticBody;
-	import flash.events.Event;
-	import com.physic.event.BodyEvent;
-	import com.physic.pivot.AddPivot;
-	import com.physic.pivot.Pivot;
-	import com.physic.pivot.PivotRegister;
 	import com.physic.display.SpritePhysic;
+	import com.physic.event.BodyEvent;
+	import com.physic.pivot.Pivot;
 	import flash.display.Sprite;
+	import flash.events.Event;
 	
 	/**
 	* Exemplo de uso da biblioteca
 	* @version 1.0.0
 	*/
 	public class Main extends Sprite {
+		
+		//Elemento estático comum
+		private var background:Sprite;
 		
 		//Física
 		private var gravity:Gravity;
@@ -35,6 +36,11 @@
 		public function Main() {
 			
 			//Cria elementos
+			background = new Background();
+			background.x = -16;
+			background.y = 0;
+			addChild(background);
+			
 			ground = new Ground();
 			ground.updatePivot(Pivot.TOP_CENTER);
 			ground.x = 265;

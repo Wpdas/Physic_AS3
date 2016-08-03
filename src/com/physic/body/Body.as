@@ -66,6 +66,9 @@ package com.physic.body
 			
 			//Inicia tratamento de eventos
 			this._body.addEventListener(MouseEvent.MOUSE_DOWN, onTapBody);
+			
+			//Chama super construtor
+			super(this);
 		}
 		
 		/**

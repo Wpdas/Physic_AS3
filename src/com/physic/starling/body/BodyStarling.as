@@ -73,6 +73,9 @@ package com.physic.starling.body
 			
 			//Inicia tratamento de eventos
 			this._body.addEventListener(TouchEvent.TOUCH, onTapBody);
+			
+			//Chama super construtor
+			super(this);
 		}
 		
 		/**

@@ -109,6 +109,8 @@ package com.physic
 				
 				//Trata finalizador de gravidade caso o elemento esteja inteiramente no chao
 				//if (currentBody.isDown){
+				
+					//Implementação de AnotherElement
 					currentBody.body.pivot.y += currentBody.gForce;
 					
 					//Verifica se colidiu com algum corpo solido
@@ -184,8 +186,6 @@ package com.physic
 				if(!currentBody.body.hitTestObject(currentSolidBody.body) && !currentBody.isDown) {
 					currentBody.isDown = true;
 				}
-				
-				
 				
 				//Processa força horizontal
 				if (currentBody.enableHorizontalForce && Math.abs(currentBody.horizontalForce) > resistance){
