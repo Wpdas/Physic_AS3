@@ -2,6 +2,7 @@ package com.physic.starling
 {
 	import com.physic.body.obj.PhysicObject;
 	import com.physic.collision.CollisionType;
+	import com.physic.event.BodyEvent;
 	import com.physic.event.GravityEvent;
 	import com.physic.starling.body.BodyStarling;
 	import com.physic.starling.body.RigidBodyStarling;
@@ -144,6 +145,9 @@ package com.physic.starling
 									currentBody.isDown = (Math.abs(currentBody.gForce) - gravityForce) >= minDefictPixelGravityForce;
 									
 									if (!currentBody.isDown) dispatchEvent(new GravityEvent(GravityEvent.ON_SOME_BODY_STOP));
+									
+									//Dispara evento no objeto informando que colidiu
+									currentBody.dispatchEvent(new BodyEvent(BodyEvent.ON_COLLISION));
 									
 								}
 							}
