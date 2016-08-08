@@ -5,6 +5,7 @@ package com.physic
 	import com.physic.body.StaticBody;
 	import com.physic.body.obj.PhysicObject;
 	import com.physic.collision.CollisionType;
+	import com.physic.event.BodyEvent;
 	import com.physic.event.GravityEvent;
 	import flash.geom.Point;
 	
@@ -142,6 +143,9 @@ package com.physic
 									
 									//Se o objeto for setado como false, dispara evento informando que algum elemento de Body foi parado (o efeito da gravidade)
 									if (!currentBody.isDown) dispatchEvent(new GravityEvent(GravityEvent.ON_SOME_BODY_STOP));
+									
+									//Dispara evento no objeto informando que colidiu
+									currentBody.dispatchEvent(new BodyEvent(BodyEvent.ON_COLLISION));
 								}
 							}
 							
@@ -156,6 +160,9 @@ package com.physic
 									
 									//Se o objeto for setado como false, dispara evento informando que algum elemento de Body foi parado (o efeito da gravidade)
 									if (!currentBody.isDown) dispatchEvent(new GravityEvent(GravityEvent.ON_SOME_BODY_STOP));
+									
+									//Dispara evento no objeto informando que colidiu
+									currentBody.dispatchEvent(new BodyEvent(BodyEvent.ON_COLLISION));
 								}
 							}
 							
@@ -170,6 +177,9 @@ package com.physic
 									
 									//Se o objeto for setado como false, dispara evento informando que algum elemento de Body foi parado (o efeito da gravidade)
 									if (!currentBody.isDown) dispatchEvent(new GravityEvent(GravityEvent.ON_SOME_BODY_STOP));
+									
+									//Dispara evento no objeto informando que colidiu
+									currentBody.dispatchEvent(new BodyEvent(BodyEvent.ON_COLLISION));
 								}
 								
 							}

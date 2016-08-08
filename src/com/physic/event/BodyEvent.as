@@ -41,6 +41,12 @@ package com.physic.event
 		 */
 		public static const ON_MOVE_DOWN:String = "bodyEvent_onMoveDown"
 		
+		/**
+		 * Quando ocorrer colisão com outro objeto
+		 * @param	type
+		 */
+		public static const ON_COLLISION:String = "bodyEvent_onCollision";
+		
 		public function BodyEvent(type:String) 
 		{ 
 			super(type);
