@@ -1,5 +1,5 @@
 ![alt tag](https://github.com/Wpdas/Physic_AS3/blob/master/docs/billard-gl.png)
-# Physic AS3 v1.1.2
+# Physic AS3 v1.1.3
 >Author: Wenderson Pires - wpdas@yahoo.com.br
 
 Physic é uma Framework para simulação de física. Foi construída para ser usada em jogos simples que necessitam de ações simples naturalizadas da física.
@@ -160,6 +160,10 @@ package  {
 
 Log de Alterações (changelog)
 -----
+
+####version 1.1.3 - 2016-08-08
+- Novo detector de evento
+- BodyEvent.ON_COLLISION usado para detectar quando um objeto colidir com outro
 
 ####version 1.1.2 - 2016-08-01
 - Implementação aprimorada de colisão de objetos Starling
