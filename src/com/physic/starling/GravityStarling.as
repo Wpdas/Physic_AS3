@@ -193,6 +193,17 @@ package com.physic.starling
 						//====================================================================
 						
 					}
+					
+					
+					if (boundsBody.intersects(boundsSolidBody)){
+						
+						//Dispara evento informando que houve uma interação
+						currentBody.dispatchEvent(new BodyEvent(BodyEvent.ON_INTERSECTS, currentSolidBody, boundsSolidBody));
+					}
+					
+					/*var point1:Point = new Point(currentSolidBody.body.x, currentSolidBody.body.y);
+					var point2:Point = new Point(currentBody.body.x, currentBody.body.y);
+					trace(currentSolidBody.bitmap.hitTest(point1, 255, currentBody.bitmap, point2, 255))*/
 				}
 				
 				

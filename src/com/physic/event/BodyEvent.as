@@ -1,6 +1,7 @@
 package com.physic.event 
 {
 	import flash.events.Event;
+	import flash.geom.Rectangle;
 	
 	/**
 	 * Eventos de corpo Body
@@ -47,11 +48,43 @@ package com.physic.event
 		 */
 		public static const ON_COLLISION:String = "bodyEvent_onCollision";
 		
-		public function BodyEvent(type:String) 
+		/**
+		 * Quando o objeto entrar dentro do outro
+		 */
+		public static const ON_INTERSECTS:String = "bodyEvent_onIntersects";
+		
+		private var _otherElement:Object;
+		private var _boundsOtherElement:Rectangle;
+		
+		/**
+		 * 
+		 * @param	type				Tipo de evento
+		 * @param	otherElement		Elemento a qual teve interação com o corpo disparador (StaticBody, StaticBodyElement)
+		 * @param	boundsOtherElement	Bordas do elemento a qual teve interação com o corpo disparador
+		 */
+		public function BodyEvent(type:String, otherElement:Object = null, boundsOtherElement:Rectangle = null) 
 		{ 
-			super(type);
+			this._otherElement = otherElement;
+			this._boundsOtherElement = boundsOtherElement;
 			
+			super(type);
 		} 
+		
+		/**
+		 * Elemento que sofreu interação com este corpo
+		 */
+		public function get otherElement():Object 
+		{
+			return _otherElement;
+		}
+		
+		/**
+		 * Bordas do elemento que sofreu interação com este corpo
+		 */
+		public function get boundsOtherElement():Rectangle 
+		{
+			return _boundsOtherElement;
+		}
 		
 	}
 	
