@@ -3,11 +3,16 @@ package com.physic.body
 	import com.physic.body.obj.PhysicObject;
 	import com.physic.display.SpritePhysic;
 	import com.physic.event.BodyEvent;
+	import com.physic.plugin.Plugin;
 	import flash.display.BitmapData;
 	import flash.events.MouseEvent;
 	
 	/**
 	 * Corpo
+	 * 
+	 * @version 1.2.0
+	 * - Plugin para inserção de propriedades de fora
+	 * 
 	 * @author Wenderson Pires da Silva - @wpdas
 	 */
 	public class Body extends PhysicObject
@@ -314,6 +319,16 @@ package com.physic.body
 			
 			//Remove eventos
 			this._body.removeEventListener(MouseEvent.MOUSE_DOWN, onTapBody);
+		}
+		
+		/**
+		 * Adicionar plugin ao corpo
+		 * @param	plugin	Plugin a ser inserido no corpo
+		 */
+		public function addPlugin(SourcePlugin:Class):void {
+			
+			var newPlugin:Plugin = new SourcePlugin(this);
+			Plugin.plugins.push(newPlugin);
 		}
 		
 	}

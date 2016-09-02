@@ -1,5 +1,5 @@
 ![alt tag](https://github.com/Wpdas/Physic_AS3/blob/master/docs/billard-gl.png)
-# Physic AS3 v1.1.4
+# Physic AS3 v1.2.0
 >Author: Wenderson Pires - wpdas@yahoo.com.br
 
 Physic é uma Framework para simulação de física. Foi construída para ser usada em jogos simples que necessitam de ações simples naturalizadas da física.
@@ -30,19 +30,21 @@ package  {
 	import com.physic.Gravity;
 	import com.physic.body.RigidBody;
 	import com.physic.body.StaticBody;
-	import com.physic.event.BodyEvent;
-	import com.physic.pivot.AddPivot;
-	import com.physic.pivot.Pivot;
-	import com.physic.pivot.PivotRegister;
 	import com.physic.display.SpritePhysic;
+	import com.physic.event.BodyEvent;
+	import com.physic.pivot.Pivot;
+	import com.physic.plugin.native.gestouch.GestouchRecognize;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	
 	/**
 	* Exemplo de uso da biblioteca
-	* @version 1.0.0
+	* @version 1.2.0
 	*/
 	public class Main extends Sprite {
+		
+		//Elemento estático comum
+		private var background:Sprite;
 		
 		//Física
 		private var gravity:Gravity;
@@ -53,15 +55,26 @@ package  {
 		private var groundStaticBody:StaticBody;
 		
 		//Elementos (Devem ser setados na base da biblioteca caso sejam instanciadas lá)
-		private var rocket:SpritePhysic; //Só é suportado este tipo de objeto (necessário para tratar Pivot, ponto de registro do objeto)
+		private var rocket:SpritePhysic;
 		private var meteor:SpritePhysic;
 		private var planet1:SpritePhysic;
 		private var planet2:SpritePhysic;
 		private var ground:SpritePhysic;
 		
+		//Multitouch usando plugin GestouchRecognize
+		private var mtRocket1:SpritePhysic;
+		private var mtRocket2:SpritePhysic;
+		private var mtRocket1Body:RigidBody;
+		private var mtRocket2Body:RigidBody;
+		
 		public function Main() {
 			
 			//Cria elementos
+			background = new Background();
+			background.x = -16;
+			background.y = 0;
+			addChild(background);
+			
 			ground = new Ground();
 			ground.updatePivot(Pivot.TOP_CENTER);
 			ground.x = 265;
@@ -73,6 +86,19 @@ package  {
 			rocket.x = 636;
 			rocket.y = 623;
 			addChild(rocket);
+			
+			//Elementos para multitoque
+			mtRocket1 = new RocketMT();
+			mtRocket1.updatePivot(Pivot.BOTTOM_CENTER);
+			mtRocket1.x = 400;
+			mtRocket1.y = 623;
+			addChild(mtRocket1);
+			
+			mtRocket2 = new RocketMT();
+			mtRocket2.updatePivot(Pivot.BOTTOM_CENTER);
+			mtRocket2.x = 837;
+			mtRocket2.y = 623;
+			addChild(mtRocket2);
 			
 			planet1 = new PlanetOne;
 			planet1.updatePivot(Pivot.CENTER);
@@ -108,6 +134,25 @@ package  {
 			rocketBody.addEventListener(BodyEvent.ON_MOVE_DOWN, onRocketMoveDown);
 			gravity.insertBody(rocketBody);
 			
+			
+			
+			
+			//Elementos de multitouch usando plugin Gestouch
+			mtRocket1Body = new RigidBody(mtRocket1, 1);
+			mtRocket1Body.isDown = false;
+			mtRocket1Body.addPlugin(GestouchRecognize);
+			mtRocket1Body.addEventListener(BodyEvent.ON_TAP_CLICK, onTapMultitouchGestouchRecognize);
+			gravity.insertBody(mtRocket1Body);
+			
+			mtRocket2Body = new RigidBody(mtRocket2, 1);
+			mtRocket2Body.isDown = false;
+			mtRocket2Body.addPlugin(GestouchRecognize);
+			mtRocket2Body.addEventListener(BodyEvent.ON_TAP_CLICK, onTapMultitouchGestouchRecognize);
+			gravity.insertBody(mtRocket2Body);
+			
+			
+			
+			
 			planetOneBody = new RigidBody(planet1, 3, true);
 			gravity.insertBody(planetOneBody);
 			planetOneBody.addHorizontalForce(10);
@@ -121,9 +166,16 @@ package  {
 			
 			//Ativa renderizador
 			addEventListener(Event.ENTER_FRAME, render);
-			
-			//(!)Basta remover o evento para parar a renderização da gravidade
-			//removeEventListener(Event.ENTER_FRAME, render);
+		}
+		
+		/**
+		 * Quando tocar num elemento que usa o Plugin GestouchRecognize para multtoque (somente para display sensiveis a toque)
+		 * @param	e
+		 */
+		private function onTapMultitouchGestouchRecognize(e:BodyEvent):void 
+		{
+			//Insere força vertical
+			(e.target as RigidBody).addVerticalForce( -15);
 		}
 
 		//Altera escala do Foguete
@@ -148,18 +200,24 @@ package  {
 			gravity.removeBody(planetOneBody);
 		}
 		
-		//Renderiza
 		private function render(e:Event):void {
 			
 			gravity.render();
 		}
 	}
+	
 }
+
 
 ```
 
 Log de Alterações (changelog)
 -----
+####version 1.2.0 - 2016-09-02
+- Inserido a possibilidade de criar Plugins
+- Primeiro plugin nativo criado "GestouchRecognize". Este plugin é usado para transformar o disparador de evento de toque em multitoque/Multitouch usando a biblioteca Gestouch.
+- Implementação em Body.as (Somente Body normal). Ainda não está disponível esta implementação para uso com Starling.
+
 ####version 1.1.4 - 2016-08-14
 - Novo detector de evento
 - BodyEvent.ON_INTERSECTS usado para detectar quando um objeto entrar dentro do outro

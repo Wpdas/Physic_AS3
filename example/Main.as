@@ -6,12 +6,13 @@
 	import com.physic.display.SpritePhysic;
 	import com.physic.event.BodyEvent;
 	import com.physic.pivot.Pivot;
+	import com.physic.plugin.native.gestouch.GestouchRecognize;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	
 	/**
 	* Exemplo de uso da biblioteca
-	* @version 1.0.0
+	* @version 1.2.0
 	*/
 	public class Main extends Sprite {
 		
@@ -33,6 +34,12 @@
 		private var planet2:SpritePhysic;
 		private var ground:SpritePhysic;
 		
+		//Multitouch usando plugin GestouchRecognize
+		private var mtRocket1:SpritePhysic;
+		private var mtRocket2:SpritePhysic;
+		private var mtRocket1Body:RigidBody;
+		private var mtRocket2Body:RigidBody;
+		
 		public function Main() {
 			
 			//Cria elementos
@@ -52,6 +59,19 @@
 			rocket.x = 636;
 			rocket.y = 623;
 			addChild(rocket);
+			
+			//Elementos para multitoque
+			mtRocket1 = new RocketMT();
+			mtRocket1.updatePivot(Pivot.BOTTOM_CENTER);
+			mtRocket1.x = 400;
+			mtRocket1.y = 623;
+			addChild(mtRocket1);
+			
+			mtRocket2 = new RocketMT();
+			mtRocket2.updatePivot(Pivot.BOTTOM_CENTER);
+			mtRocket2.x = 837;
+			mtRocket2.y = 623;
+			addChild(mtRocket2);
 			
 			planet1 = new PlanetOne;
 			planet1.updatePivot(Pivot.CENTER);
@@ -87,6 +107,25 @@
 			rocketBody.addEventListener(BodyEvent.ON_MOVE_DOWN, onRocketMoveDown);
 			gravity.insertBody(rocketBody);
 			
+			
+			
+			
+			//Elementos de multitouch usando plugin Gestouch
+			mtRocket1Body = new RigidBody(mtRocket1, 1);
+			mtRocket1Body.isDown = false;
+			mtRocket1Body.addPlugin(GestouchRecognize);
+			mtRocket1Body.addEventListener(BodyEvent.ON_TAP_CLICK, onTapMultitouchGestouchRecognize);
+			gravity.insertBody(mtRocket1Body);
+			
+			mtRocket2Body = new RigidBody(mtRocket2, 1);
+			mtRocket2Body.isDown = false;
+			mtRocket2Body.addPlugin(GestouchRecognize);
+			mtRocket2Body.addEventListener(BodyEvent.ON_TAP_CLICK, onTapMultitouchGestouchRecognize);
+			gravity.insertBody(mtRocket2Body);
+			
+			
+			
+			
 			planetOneBody = new RigidBody(planet1, 3, true);
 			gravity.insertBody(planetOneBody);
 			planetOneBody.addHorizontalForce(10);
@@ -100,6 +139,16 @@
 			
 			//Ativa renderizador
 			addEventListener(Event.ENTER_FRAME, render);
+		}
+		
+		/**
+		 * Quando tocar num elemento que usa o Plugin GestouchRecognize para multtoque (somente para display sensiveis a toque)
+		 * @param	e
+		 */
+		private function onTapMultitouchGestouchRecognize(e:BodyEvent):void 
+		{
+			//Insere força vertical
+			(e.target as RigidBody).addVerticalForce( -15);
 		}
 
 		//Altera escala do Foguete

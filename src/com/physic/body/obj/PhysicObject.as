@@ -4,6 +4,7 @@ package com.physic.body.obj
 	
 	/**
 	 * Objeto pai de física
+	 * 
 	 * @author Wenderson Pires da Silva - @wpdas
 	 */
 	public class PhysicObject extends EventDispatcher
